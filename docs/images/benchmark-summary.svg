@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-label="Sample benchmark terminal output">
+  <rect width="960" height="360" rx="8" fill="#171b1d"/>
+  <rect x="0" y="0" width="960" height="42" rx="8" fill="#252b2d"/>
+  <circle cx="28" cy="21" r="7" fill="#ff5f57"/>
+  <circle cx="52" cy="21" r="7" fill="#febc2e"/>
+  <circle cx="76" cy="21" r="7" fill="#28c840"/>
+  <text x="32" y="86" font-family="Consolas, Menlo, monospace" font-size="22" fill="#d6f5df">$ ros2 run jetson_ready_ros2_object_detection benchmark --backend torchvision --device cuda</text>
+  <text x="32" y="136" font-family="Consolas, Menlo, monospace" font-size="22" fill="#f2f7f4">backend=torchvision model=default device=cuda fps=12.84 latency_ms_mean=77.90 latency_ms_p95=84.35 detections=3</text>
+  <text x="32" y="202" font-family="Consolas, Menlo, monospace" font-size="20" fill="#94a39a">Fields: backend, model, device, FPS, mean latency, p95 latency, final-frame detection count</text>
+  <text x="32" y="248" font-family="Consolas, Menlo, monospace" font-size="20" fill="#94a39a">Numbers shown here are illustrative README sample output, not Jetson test claims.</text>
+  <rect x="32" y="286" width="896" height="1" fill="#354044"/>
+  <text x="32" y="326" font-family="Consolas, Menlo, monospace" font-size="18" fill="#6fe69b">Jetson-oriented, not yet tested on Jetson.</text>
+</svg>

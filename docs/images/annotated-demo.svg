@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="Sample annotated object detection output">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#dce8ee"/>
+      <stop offset="1" stop-color="#bcc9c8"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#6f7772"/>
+      <stop offset="1" stop-color="#3f4746"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="#111"/>
+  <rect x="40" y="36" width="880" height="468" rx="6" fill="url(#sky)"/>
+  <rect x="40" y="330" width="880" height="174" fill="url(#road)"/>
+  <path d="M105 330 L250 210 L400 330 Z" fill="#879288"/>
+  <path d="M330 330 L520 180 L730 330 Z" fill="#727f78"/>
+  <path d="M565 504 L445 330 L520 330 L690 504 Z" fill="#c9c7b1" opacity=".75"/>
+  <rect x="108" y="244" width="160" height="70" rx="8" fill="#446273"/>
+  <rect x="132" y="218" width="98" height="42" rx="7" fill="#567b8e"/>
+  <circle cx="145" cy="318" r="20" fill="#1b2224"/>
+  <circle cx="235" cy="318" r="20" fill="#1b2224"/>
+  <rect x="605" y="252" width="196" height="82" rx="9" fill="#8a493f"/>
+  <rect x="642" y="220" width="104" height="46" rx="8" fill="#a35b50"/>
+  <circle cx="650" cy="338" r="22" fill="#1b2224"/>
+  <circle cx="765" cy="338" r="22" fill="#1b2224"/>
+  <rect x="438" y="215" width="50" height="122" rx="18" fill="#273947"/>
+  <circle cx="464" cy="190" r="25" fill="#d6ad82"/>
+  <rect x="388" y="169" width="142" height="179" fill="none" stroke="#32d074" stroke-width="4"/>
+  <rect x="388" y="138" width="132" height="30" rx="3" fill="#32d074"/>
+  <text x="399" y="159" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#07120d">person 0.91</text>
+  <rect x="90" y="205" width="195" height="139" fill="none" stroke="#32d074" stroke-width="4"/>
+  <rect x="90" y="174" width="101" height="30" rx="3" fill="#32d074"/>
+  <text x="101" y="195" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#07120d">car 0.86</text>
+  <rect x="585" y="206" width="236" height="160" fill="none" stroke="#32d074" stroke-width="4"/>
+  <rect x="585" y="175" width="111" height="30" rx="3" fill="#32d074"/>
+  <text x="596" y="196" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#07120d">truck 0.78</text>
+  <rect x="54" y="50" width="188" height="34" rx="4" fill="#111" opacity=".72"/>
+  <text x="68" y="73" font-family="Arial, sans-serif" font-size="18" fill="#f4f7f5">/detections/annotated</text>
+</svg>
