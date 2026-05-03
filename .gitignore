@@ -1,0 +1,23 @@
+build/
+install/
+log/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Model weights and benchmark outputs can get large quickly.
+*.pt
+*.pth
+*.onnx
+*.engine
+benchmark-results/
+captures/
+
+# Local editor/system files.
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

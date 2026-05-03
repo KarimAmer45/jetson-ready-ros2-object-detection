@@ -1,0 +1,16 @@
+.git/
+build/
+install/
+log/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+benchmark-results/
+captures/
+*.pt
+*.pth
+*.onnx
+*.engine

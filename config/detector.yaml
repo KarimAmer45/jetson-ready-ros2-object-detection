@@ -1,0 +1,14 @@
+object_detector:
+  ros__parameters:
+    image_topic: /camera/image_raw
+    detections_topic: /detections
+    annotated_topic: /detections/annotated
+    stats_topic: /detections/stats
+    backend: torchvision
+    model: ""
+    device: auto
+    score_threshold: 0.5
+    max_detections: 50
+    publish_annotated: true
+    queue_size: 2
+    log_interval_sec: 5.0
