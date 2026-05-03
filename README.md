@@ -6,11 +6,11 @@ Jetson-oriented, not yet tested on Jetson.
 
 ## Result Screenshots
 
-![Sample annotated detection output](docs/images/annotated-demo.svg)
+![Sample annotated detection output on a real street scene](docs/images/real-world-annotated.jpg)
 
 ![Sample benchmark output](docs/images/benchmark-summary.svg)
 
-The screenshots are representative local sample outputs for the README. They are not Jetson benchmark claims.
+The screenshots are representative local sample outputs for the README. They are not Jetson benchmark claims. The street-scene photo is based on [“Busy street during rush hour” by Victor Kibiwott](https://commons.wikimedia.org/wiki/File:Busy_street_during_rush_hour.jpg), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), with annotation overlays added.
 
 ## What this demonstrates
 
