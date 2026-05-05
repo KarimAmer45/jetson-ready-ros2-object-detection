@@ -4,7 +4,7 @@ Small ROS2 object-detection pipeline for camera streams. It subscribes to camera
 
 Jetson-oriented, not yet tested on Jetson.
 
-## Result Screenshots
+## Detection output
 
 ![Sample annotated detection output on a real street scene](docs/images/real-world-annotated.jpg)
 
@@ -12,7 +12,7 @@ Jetson-oriented, not yet tested on Jetson.
 
 The screenshots are representative local sample outputs for the README. They are not Jetson benchmark claims. The street-scene photo is based on [“Busy street during rush hour” by Victor Kibiwott](https://commons.wikimedia.org/wiki/File:Busy_street_during_rush_hour.jpg), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), with annotation overlays added.
 
-## What this demonstrates
+## ROS2 deployment workflow
 
 - A ROS2 Python node that consumes `sensor_msgs/Image` camera frames.
 - Detector backend abstraction with `torchvision` Faster R-CNN by default and optional Ultralytics YOLO support.
@@ -125,7 +125,7 @@ Defaults live in `config/detector.yaml`. Common launch overrides:
 | `max_detections` | `50` | Per-frame detection cap |
 | `publish_annotated` | `true` | Publish annotated image frames |
 
-## Limitations and next steps
+## Deployment caveats
 
 - Jetson-oriented, not yet tested on Jetson.
 - First run may download detector weights unless the model files are already cached.
