@@ -1,8 +1,8 @@
-# Jetson-Ready ROS2 Object Detection
+# ROS2 Object Detection Pipeline
 
 Small ROS2 object-detection pipeline for camera streams. It subscribes to camera images, runs a PyTorch detector, publishes `vision_msgs/Detection2DArray` bounding boxes, and publishes an annotated `sensor_msgs/Image` stream.
 
-Jetson-oriented, not yet tested on Jetson.
+The package is designed with Jetson deployment in mind, but the current checked-in evidence is a ROS2/PyTorch pipeline plus local benchmark path, not a validated Jetson benchmark.
 
 ## Result Screenshots
 
@@ -127,7 +127,7 @@ Defaults live in `config/detector.yaml`. Common launch overrides:
 
 ## Limitations and next steps
 
-- Jetson-oriented, not yet tested on Jetson.
+- Jetson deployment is a target, but the repo does not yet include a validated Jetson run or JetPack-specific benchmark.
 - First run may download detector weights unless the model files are already cached.
 - The default Torchvision model is easy to run but not optimized for Jetson latency.
 - No TensorRT export path is included yet; adding ONNX/TensorRT engines is the natural next step.
