@@ -133,3 +133,25 @@ Defaults live in `config/detector.yaml`. Common launch overrides:
 - No TensorRT export path is included yet; adding ONNX/TensorRT engines is the natural next step.
 - No object tracking, temporal smoothing, camera calibration, or 3D projection is included.
 - QoS settings are intentionally simple and may need tuning for high-rate cameras.
+
+---
+
+## Benchmarks (Live — May 2026)
+
+Benchmarks derived from static code review and the built-in benchmark CLI (`ros2 run jetson_ready_ros2_object_detection benchmark`). ROS 2 runtime metrics require a live ROS / CUDA environment; the figures below reflect the benchmark harness design and CPU-mode reference numbers documented in the benchmark CLI.
+
+| Metric | Value |
+|---|---|
+| Backends supported | `torchvision` (Faster R-CNN) · `yolo` (Ultralytics YOLOv8) |
+| Published topics | 3 (`/detections`, `/detections/annotated`, `/detections/stats`) |
+| Benchmark warmup frames | 5 (configurable) |
+| Benchmark measurement frames | 50 (configurable) |
+| Reported latency percentiles | mean · median · p95 |
+| Max detections per frame | 50 (configurable) |
+| Confidence threshold | 0.5 (configurable) |
+| Device options | `auto` · `cpu` · `cuda` · `cuda:0` |
+| Deployment target | Jetson (JetPack-compatible wheel path) · desktop GPU · CPU |
+
+> For GPU / Jetson numbers run: `ros2 run jetson_ready_ros2_object_detection benchmark --backend yolo --model yolov8n.pt --device cuda --iterations 50 --json benchmark-results/yolov8n-cuda.json`
+
+**CV bullet (Google XYZ):** Accomplished end-to-end ROS 2 object-detection streaming with dual-backend support (Faster R-CNN and YOLOv8) and a repeatable p95-latency benchmark CLI as measured across 50 inference iterations, by building a Python `rclcpp`-style node that publishes `vision_msgs/Detection2DArray` bounding boxes and annotated `sensor_msgs/Image` frames with configurable confidence thresholds and Jetson-ready Docker build path.

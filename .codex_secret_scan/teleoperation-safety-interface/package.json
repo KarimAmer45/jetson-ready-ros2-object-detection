@@ -1,0 +1,19 @@
+{
+  "name": "teleoperation-safety-interface",
+  "version": "1.0.0",
+  "description": "A static teleoperation safety console prototype for remote robot operators.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node tools/server.mjs",
+    "check": "node --check src/app.js && node --check tools/server.mjs"
+  },
+  "keywords": [
+    "teleoperation",
+    "robotics",
+    "safety",
+    "human-machine-interface",
+    "github-pages"
+  ],
+  "license": "MIT"
+}

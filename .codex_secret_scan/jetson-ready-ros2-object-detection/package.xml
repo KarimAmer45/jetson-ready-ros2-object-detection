@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>jetson_ready_ros2_object_detection</name>
+  <version>0.1.0</version>
+  <description>A compact ROS2 object-detection pipeline with PyTorch backends, annotated image publishing, and FPS/latency benchmarking.</description>
+  <maintainer email="karim@example.com">Karim</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>diagnostic_msgs</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>vision_msgs</exec_depend>
+
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

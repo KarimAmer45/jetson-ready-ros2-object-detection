@@ -1,0 +1,17 @@
+build/
+install/
+log/
+
+.colcon/
+.vscode/
+.idea/
+
+*.pyc
+__pycache__/
+
+*.swp
+*.swo
+*~
+
+.DS_Store
+Thumbs.db

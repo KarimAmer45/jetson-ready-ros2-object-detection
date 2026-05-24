@@ -1,0 +1,32 @@
+{
+  "version": "baseline-linear-v1",
+  "normalization": {
+    "spindle_speed": 10000.0,
+    "feed_rate": 800.0,
+    "depth_of_cut": 3.0,
+    "vibration_mean_abs": 1.0,
+    "vibration_rms": 1.0,
+    "vibration_peak": 2.0
+  },
+  "tool_wear": {
+    "intercept": 0.046,
+    "weights": {
+      "spindle_speed": 0.035,
+      "feed_rate": 0.055,
+      "depth_of_cut": 0.08,
+      "vibration_mean_abs": 0.05,
+      "vibration_rms": 0.075,
+      "vibration_peak": 0.04
+    }
+  },
+  "surface_quality_thresholds": {
+    "medium": 0.26,
+    "high": 0.42
+  },
+  "confidence": {
+    "base": 0.89,
+    "wear_penalty": 0.22,
+    "vibration_penalty": 0.08,
+    "operating_span_penalty": 0.12
+  }
+}

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A browser-based teleoperation safety interface prototype for remote robot operators.">
+    <title>Teleoperation Safety Interface</title>
+    <link rel="stylesheet" href="src/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <span class="system-tag">Remote Operations Console</span>
+          <h1>Teleoperation Safety Interface</h1>
+          <p id="robotIdentity">TSI-04 / Lab Cell A</p>
+        </div>
+        <div class="topbar-status" aria-label="System status">
+          <div class="status-pill" id="connectionPill">
+            <span class="status-dot"></span>
+            <span id="connectionLabel">Connected</span>
+          </div>
+          <div class="status-pill" id="safetyPill">
+            <span class="status-dot"></span>
+            <span id="safetyLabel">Standby</span>
+          </div>
+          <button class="button secondary" id="resetButton" type="button">Reset Stop</button>
+          <button class="button danger" id="estopButton" type="button">E-STOP</button>
+        </div>
+      </header>
+
+      <main class="console-grid" aria-label="Teleoperation console">
+        <section class="panel operation-panel" aria-labelledby="operationTitle">
+          <div class="panel-heading">
+            <div>
+              <span class="section-kicker">Live Cell</span>
+              <h2 id="operationTitle">Operator View</h2>
+            </div>
+            <div class="mode-readout">
+              <span id="modeLabel">Inspection</span>
+              <strong id="gateLabel">Output hold</strong>
+            </div>
+          </div>
+
+          <div class="viewport" aria-label="Safety map and teleoperation feed">
+            <canvas id="safetyMap" width="1280" height="760"></canvas>
+            <div class="viewport-strip">
+              <span id="scenarioLabel">Nominal aisle</span>
+              <span id="clockLabel">00:00:00</span>
+            </div>
+            <div class="command-vector" id="commandVector">
+              <span>Desired</span>
+              <strong id="desiredReadout">0.00 m/s</strong>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="command-pad-wrap">
+              <div class="field-label">Command Pad</div>
+              <div class="command-pad" id="commandPad" role="application" aria-label="Command pad">
+                <span class="axis axis-x"></span>
+                <span class="axis axis-y"></span>
+                <span class="joystick" id="joystick"></span>
+              </div>
+            </div>
+
+            <div class="command-controls">
+              <div class="field-row">
+                <label for="speedLimit">Speed limit</label>
+                <output id="speedLimitValue" for="speedLimit">0.55 m/s</output>
+              </div>
+              <input id="speedLimit" type="range" min="0.10" max="1.20" step="0.05" value="0.55">
+
+              <div class="button-row">
+                <button class="button primary" id="armButton" type="button">Arm</button>
+                <button class="button hold" id="deadmanButton" type="button">Hold Deadman</button>
+              </div>
+
+              <div class="output-box">
+                <span>Commanded output</span>
+                <strong id="outputReadout">0.00 m/s / 0.00 rad/s</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="interlockTitle">
+          <div class="panel-heading">
+            <div>
+              <span class="section-kicker">Policy</span>
+              <h2 id="interlockTitle">Safety Interlocks</h2>
+            </div>
+            <strong class="risk-score" id="riskScore">0</strong>
+          </div>
+
+          <div class="interlock-list" id="interlockList" aria-live="polite"></div>
+
+          <div class="scenario-controls" aria-label="Scenario controls">
+            <button class="scenario-button active" data-scenario="nominal" type="button">Nominal</button>
+            <button class="scenario-button" data-scenario="crowded" type="button">Crowded</button>
+            <button class="scenario-button" data-scenario="commsLoss" type="button">Comms Loss</button>
+            <button class="scenario-button" data-scenario="slope" type="button">Slope</button>
+            <button class="scenario-button" data-scenario="lowBattery" type="button">Low Battery</button>
+          </div>
+
+          <label class="select-label" for="operationMode">Operation mode</label>
+          <select id="operationMode">
+            <option value="inspection">Inspection</option>
+            <option value="recovery">Recovery</option>
+            <option value="docking">Docking</option>
+            <option value="handover">Handover</option>
+          </select>
+
+          <div class="sim-source-card">
+            <div class="field-row">
+              <label for="simSource">Simulation source</label>
+              <strong id="sourceStatus">Browser demo</strong>
+            </div>
+            <select id="simSource">
+              <option value="browser">Browser demo</option>
+              <option value="gazebo">Gazebo / ROS 2 bridge</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="telemetryTitle">
+          <div class="panel-heading">
+            <div>
+              <span class="section-kicker">Robot State</span>
+              <h2 id="telemetryTitle">Telemetry</h2>
+            </div>
+            <span id="lastPacket">Last packet now</span>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric">
+              <span>Latency</span>
+              <strong id="latencyMetric">54 ms</strong>
+            </div>
+            <div class="metric">
+              <span>Battery</span>
+              <strong id="batteryMetric">82%</strong>
+            </div>
+            <div class="metric">
+              <span>Human range</span>
+              <strong id="humanMetric">3.8 m</strong>
+            </div>
+            <div class="metric">
+              <span>Speed</span>
+              <strong id="speedMetric">0.00 m/s</strong>
+            </div>
+            <div class="metric">
+              <span>Tilt</span>
+              <strong id="tiltMetric">2.1 deg</strong>
+            </div>
+            <div class="metric">
+              <span>Motor temp</span>
+              <strong id="tempMetric">38 C</strong>
+            </div>
+          </div>
+
+          <div class="bridge-card">
+            <div class="timeline-heading">
+              <span>Gazebo Bridge</span>
+              <strong id="bridgeStatus">Offline</strong>
+            </div>
+            <label class="select-label" for="bridgeUrl">Rosbridge WebSocket</label>
+            <div class="bridge-connect-row">
+              <input id="bridgeUrl" type="url" value="ws://localhost:9090" spellcheck="false">
+              <button class="button secondary" id="bridgeButton" type="button">Connect</button>
+            </div>
+            <div class="bridge-topic-row">
+              <span>Telemetry</span>
+              <strong>/tsi/telemetry</strong>
+              <span>Command</span>
+              <strong>/cmd_vel</strong>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="timeline-heading">
+              <span>Event Log</span>
+              <button class="text-button" id="clearLogButton" type="button">Clear</button>
+            </div>
+            <ol id="eventLog" aria-live="polite"></ol>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="src/app.js"></script>
+  </body>
+</html>

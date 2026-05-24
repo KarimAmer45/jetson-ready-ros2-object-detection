@@ -1,0 +1,24 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor and local project files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and temporary files
+*.log
+__pycache__/
+tmp/
+temp/
+
+# Dependency folders, if the project later adds a build step
+node_modules/
+dist/
+build/
+install/
+log/
+.cache/

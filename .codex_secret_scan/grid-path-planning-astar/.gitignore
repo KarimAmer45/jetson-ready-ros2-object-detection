@@ -1,0 +1,7 @@
+*.pdf
+scripts/*_test_*.png
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
