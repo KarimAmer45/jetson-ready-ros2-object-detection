@@ -1,0 +1,39 @@
+---
+- name: Build and deploy ROS 2 object detection on a Jetson
+  hosts: jetson
+  become: true
+  vars:
+    project_dir: /opt/ros2-detection
+    image_name: ros2-object-detection:jetson
+    ros_domain_id: 42
+  tasks:
+    - name: Ensure deployment directory exists
+      ansible.builtin.file:
+        path: "{{ project_dir }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0755"
+
+    - name: Copy project source to Jetson
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../"
+        dest: "{{ project_dir }}/"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: preserve
+
+    - name: Build Jetson Docker image
+      ansible.builtin.command:
+        cmd: docker build --build-arg JETSON=true -t {{ image_name }} {{ project_dir }}
+      changed_when: true
+
+    - name: Run benchmark smoke test in container
+      ansible.builtin.command:
+        cmd: >
+          docker run --rm --net host --ipc host --runtime nvidia
+          -e ROS_DOMAIN_ID={{ ros_domain_id }}
+          {{ image_name }}
+          ros2 run jetson_ready_ros2_object_detection benchmark
+          --backend torchvision --device auto --warmup 1 --iterations 3
+      changed_when: false
