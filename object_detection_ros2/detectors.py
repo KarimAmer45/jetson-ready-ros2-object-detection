@@ -254,7 +254,8 @@ class YoloDetector:
         from ultralytics import YOLO
 
         self.model = YOLO(model)
-        self.device = None if device == "auto" else device
+        resolved = resolve_device(device)
+        self.device = str(resolved)
         self.score_threshold = score_threshold
         self.max_detections = max_detections
 

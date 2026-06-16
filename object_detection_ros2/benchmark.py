@@ -50,10 +50,11 @@ def load_image(path: str, width: int, height: int) -> np.ndarray:
 
 
 def percentile(values: List[float], pct: float) -> float:
-    if not values:
-        return 0.0
-    index = min(len(values) - 1, max(0, round((pct / 100.0) * (len(values) - 1))))
-    return sorted(values)[index]
+    if len(values) < 2:
+        return values[0] if values else 0.0
+    quantiles = statistics.quantiles(values, n=100, method="inclusive")
+    index = max(0, min(int(pct) - 1, len(quantiles) - 1))
+    return quantiles[index]
 
 
 def main() -> None:

@@ -7,7 +7,7 @@ from typing import Iterable
 
 from cv_bridge import CvBridge
 import cv2
-from diagnostic_msgs.msg import KeyValue
+from diagnostic_msgs.msg import DiagnosticStatus, KeyValue
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
@@ -68,8 +68,12 @@ class ObjectDetectionNode(Node):
         self.detections_pub = self.create_publisher(
             Detection2DArray, detections_topic, queue_size
         )
-        self.annotated_pub = self.create_publisher(Image, annotated_topic, queue_size)
-        self.stats_pub = self.create_publisher(KeyValue, stats_topic, queue_size)
+        self.annotated_pub = (
+            self.create_publisher(Image, annotated_topic, queue_size)
+            if self.publish_annotated
+            else None
+        )
+        self.stats_pub = self.create_publisher(DiagnosticStatus, stats_topic, queue_size)
         self.subscription = self.create_subscription(
             Image, image_topic, self.on_image, queue_size
         )
@@ -114,12 +118,21 @@ class ObjectDetectionNode(Node):
 
         fps = self.frame_count / elapsed
         mean_latency = self.latency_ms_accumulator / max(self.frame_count, 1)
-        value = (
+        summary = (
             f"fps={fps:.2f}, latency_ms_mean={mean_latency:.2f}, "
             f"last_detections={detection_count}"
         )
-        self.stats_pub.publish(KeyValue(key="object_detector", value=value))
-        self.get_logger().info(value)
+        status = DiagnosticStatus()
+        status.name = "object_detector"
+        status.level = DiagnosticStatus.OK
+        status.message = summary
+        status.values = [
+            KeyValue(key="fps", value=f"{fps:.2f}"),
+            KeyValue(key="latency_ms_mean", value=f"{mean_latency:.2f}"),
+            KeyValue(key="last_detections", value=str(detection_count)),
+        ]
+        self.stats_pub.publish(status)
+        self.get_logger().info(summary)
 
         self.last_log_time = now
         self.frame_count = 0

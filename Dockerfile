@@ -2,6 +2,10 @@ ARG ROS_DISTRO=humble
 FROM ros:${ROS_DISTRO}-ros-base-jammy
 
 ARG ROS_DISTRO=humble
+# Set JETSON=true when building for Jetson (ARM64 + CUDA via JetPack).
+# The default installs CPU-only PyTorch for x86 CI/dev; it will not use the
+# Jetson GPU and will fail on ARM if pulled from the whl/cpu index.
+ARG JETSON=false
 ARG TORCH_INSTALL="torch torchvision --index-url https://download.pytorch.org/whl/cpu"
 ARG INSTALL_ULTRALYTICS=true
 
@@ -19,7 +23,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install --no-cache-dir --upgrade pip \
-    && python3 -m pip install --no-cache-dir ${TORCH_INSTALL} \
+    && if [ "${JETSON}" = "true" ]; then \
+        python3 -m pip install --no-cache-dir torch torchvision \
+            --index-url https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/; \
+    else \
+        python3 -m pip install --no-cache-dir ${TORCH_INSTALL}; \
+    fi \
     && if [ "${INSTALL_ULTRALYTICS}" = "true" ]; then \
         python3 -m pip install --no-cache-dir ultralytics; \
     fi
