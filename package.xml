@@ -3,7 +3,7 @@
   <name>jetson_ready_ros2_object_detection</name>
   <version>0.1.0</version>
   <description>A compact ROS2 object-detection pipeline with PyTorch backends, annotated image publishing, and FPS/latency benchmarking.</description>
-  <maintainer email="karim@example.com">Karim</maintainer>
+  <maintainer email="karimamer456@gmail.com">Karim</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_python</buildtool_depend>

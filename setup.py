@@ -29,7 +29,7 @@ setup(
     },
     zip_safe=True,
     maintainer="Karim",
-    maintainer_email="karim@example.com",
+    maintainer_email="karimamer456@gmail.com",
     description="Jetson-oriented ROS2 object detection with PyTorch backends.",
     license="MIT",
     entry_points={
